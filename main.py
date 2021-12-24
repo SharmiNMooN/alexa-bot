@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import pyttsx3
 import datetime
+import pywhatkit
 
 def change_voice(engine, language, gender='VoiceGenderFemale'):
     for voice in engine.getProperty('voices'):
@@ -32,7 +33,7 @@ def take_command():
             command = listener.recognize_google(audio)
             command = command.lower()
             if "alexa" in command:
-                print(command)
+                command = command.replace("alexa", "")
             
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -46,5 +47,9 @@ def run_command():
         speak("The time is " + time)
         print(time)
     
-run_command()
 
+    elif "play" in command:
+        song = command.replace("play", "")
+        speak("Playing " + song)
+        pywhatkit.playonyt(song)
+run_command()
