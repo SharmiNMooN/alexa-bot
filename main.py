@@ -3,6 +3,7 @@ import pyttsx3
 import datetime
 import pywhatkit
 import wikipedia
+import pyjokes
 
 def change_voice(engine, language, gender='VoiceGenderFemale'):
     for voice in engine.getProperty('voices'):
@@ -59,5 +60,9 @@ def run_command():
         info = wikipedia.summary(wiki, 1)
         print(info)
         speak("according to wikipedia " + info)
-    
+    elif "joke" in command:
+        speak(pyjokes.get_joke())
+        
+    elif "date" in command:
+        speak ("Sry vaiya....I am engagaged in another realationship")
 run_command()
