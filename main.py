@@ -27,6 +27,7 @@ def speak(text):
 
 def take_command():
 
+    command = ""
     try:
         with sr.Microphone() as source:
             print("Say something! I'm listening...")
@@ -37,9 +38,8 @@ def take_command():
             if "alexa" in command:
                 command = command.replace("alexa", "")
             
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-
+    except:
+        pass
     return command
     
 def run_command():
@@ -64,5 +64,17 @@ def run_command():
         speak(pyjokes.get_joke())
         
     elif "date" in command:
-        speak ("Sry vaiya....I am engagaged in another realationship")
+        speak("Sry vaiya....I am engagaged in another realationship")
+    else:
+        speak("I don't understand, But I can search it for you")
+        pywhatkit.search(command)
+        while True:
+            speak("Do you want to search for more?")
+            command = take_command()
+            if "yes" in command:
+                run_command()
+                break
+            elif "no" in command:
+                break
+
 run_command()
