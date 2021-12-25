@@ -2,6 +2,7 @@ import speech_recognition as sr
 import pyttsx3
 import datetime
 import pywhatkit
+import wikipedia
 
 def change_voice(engine, language, gender='VoiceGenderFemale'):
     for voice in engine.getProperty('voices'):
@@ -42,6 +43,7 @@ def take_command():
     
 def run_command():
     command = take_command()
+    print(command)
     if "time" in command:
         time = datetime.datetime.now().strftime("%I:%M %p")
         speak("The time is " + time)
@@ -52,4 +54,10 @@ def run_command():
         song = command.replace("play", "")
         speak("Playing " + song)
         pywhatkit.playonyt(song)
+    elif "tell me" in command:
+        wiki = command.replace("tell me", "")
+        info = wikipedia.summary(wiki, 1)
+        print(info)
+        speak("according to wikipedia " + info)
+    
 run_command()
